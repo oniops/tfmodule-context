@@ -9,7 +9,6 @@ module "ctx" {
   source = "git::https://github.com/bsp-dx/edu-terraform-aws.git?ref=tfmodule-context-v1.0.0"
 
   context = {
-    aws_profile = "terran"
     region      = "ap-northeast-2"
     project     = "apple"
     environment = "Production"
