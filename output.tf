@@ -18,7 +18,9 @@ output "context" {
 }
 
 output "context_string" {
-  value = join(",", [for key, value in var.context : "${key}=${value}"])
+  value = join("\n", [
+  for key, value in var.context : (value != null ? "${key}=${value}" : "${key}=")
+  ])
 }
 
 output "name_prefix" {
