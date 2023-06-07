@@ -8,7 +8,7 @@ output "context" {
     env_alias    = local.env_alias
     owner        = var.context.owner
     team         = var.context.team
-    cost_center  = var.context.cost_center
+    cost_center  = try(var.context.cost_center, "")
     domain       = var.context.domain
     pri_domain   = var.context.pri_domain
     name_prefix  = local.name_prefix

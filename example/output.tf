@@ -51,3 +51,7 @@ output "domain" {
 output "pri_domain" {
   value = module.ctx.pri_domain
 }
+
+output "context" {
+  value = module.ctx.context
+}
