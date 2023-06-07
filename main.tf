@@ -30,6 +30,7 @@ locals {
     eu-west-2      = "ew2",
     eu-west-3      = "ew3",
     me-south-1     = "ms1",
+    me-central-1   = "mc1",
     sa-east-1      = "se1",
     us-east-1      = "ue1",
     us-east-2      = "ue2",
