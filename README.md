@@ -6,7 +6,7 @@ tfmodule-context 테라폼 모듈은 클라우드 서비스 및 리소스를 정
 
 ```hcl
 module "ctx" {
-  source = "git::https://github.com/bsp-dx/edu-terraform-aws.git?ref=v1.0.0"
+  source = "git::https://code.bespinglobal.com/scm/op/tfmodule-context.git?ref=v1.0.0"
 
   context = {
     region      = "ap-northeast-2"
