@@ -1,16 +1,32 @@
 locals {
+  account_id   = data.aws_caller_identity.current.account_id
   region_alias = lookup(local.aws_region_codes, var.context.region, "nn")
-  env_alias    = lower(substr(var.context.environment, 0, 1))
-  local_tags   = {
+  environment  = lower(var.context.environment)
+  env_alias    = substr(local.environment, 0, 1)
+  env_cd       = lookup(local.env_codes, var.context.environment, "nn")
+  env_code     = local.env_cd != "nn" ? local.env_cd : substr(local.environment, 0, 3)
+
+  local_tags = {
     Project     = var.context.project
     Environment = var.context.environment
-    Team        = var.context.team
+    Department  = var.context.department
     Owner       = var.context.owner
+    Customer    = var.context.customer
+    ManagedBy   = var.provisioner
   }
 
-  name_prefix = var.name_prefix == null ? format("%s-%s%s", var.context.project, local.region_alias, local.env_alias) : var.name_prefix
+  name_prefix      = var.name_prefix == null ? format("%s-%s%s", var.context.project, local.region_alias, local.env_alias) : var.name_prefix
+  s3_bucket_prefix = var.context.s3_prefix_cd == "region" ?  local.name_prefix : format("%s-%s", var.context.project, local.env_code)
 
-  tags = merge(var.additional_tags, local.local_tags)
+  tags = merge(
+    ( var.cost_center != null ? { CostCenter = var.cost_center } : {} ),
+    ( var.team != null ? {
+      OpsNowService = var.team
+      Team          = var.team
+    } : {} ),
+    local.local_tags,
+    var.additional_tags
+  )
 
   # AWS Regions code and alias table.
   aws_region_codes = {
@@ -37,4 +53,18 @@ locals {
     us-west-1      = "uw1",
     us-west-2      = "uw2",
   }
+
+  # Environment Codes
+  env_codes = {
+    Production  = "prd",
+    Prod        = "prd",
+    Development = "dev",
+    Dev         = "dev",
+    Stage       = "stg",
+    Stg         = "stg",
+    PoC         = "poc",
+    Testbed     = "tbd",
+    Test        = "tst",
+  }
+
 }

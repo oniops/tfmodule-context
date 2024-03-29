@@ -1,14 +1,15 @@
 variable "context" {
   type = object({
-    region      = string # describe default region to create a resource from aws
-    project     = string # project name is usally account's project name or platform name
-    environment = string # Runtime Environment such as develop, stage, production
-    team        = string # Team name of Devops Transformation
-    owner       = string # project owner
-    domain      = string # public toolchain domain name (ex, tools.customer.co.kr)
-    pri_domain  = string # private domain name (ex, tools.customer.co.kr)
-    cost_center = optional(string) # Cost Center
-    aws_profile = optional(string) # describe a specifc profile to access a aws cli
+    # profile     = string # Identify a specific profile that used by provisioners like terraform.
+    project      = string # project name is usally account's project name or platform name
+    region       = string # describe default region to create a resource from aws
+    environment  = string # Distinguish between development, test, and production resources
+    department   = string # Organization name of BSP
+    owner        = string # Identify who is responsible for the resource
+    customer     = string # Identify a specific client that a particular group of resources serves
+    domain       = string # public toolchain domain name (ex, tools.customer.co.kr)
+    pri_domain   = string # private domain name (ex, tools.customer.co.kr)
+    s3_prefix_cd = optional(string) # region or env
   })
 }
 
@@ -24,3 +25,20 @@ variable "additional_tags" {
   default     = {}
 }
 
+variable "team" {
+  description = "The of team"
+  type        = string
+  default     = null
+}
+
+variable "cost_center" {
+  description = "Identify the cost center or business unit associated with a resource, typically for cost"
+  type        = number
+  default     = null
+}
+
+variable "provisioner" {
+  description = "Provisioner tool like terraform, cloudformation"
+  type        = string
+  default     = "Terraform"
+}
