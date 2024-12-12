@@ -6,18 +6,17 @@ tfmodule-context 테라폼 모듈은 클라우드 서비스 및 리소스를 정
 
 ```hcl
 module "ctx" {
-  source = "git::https://code.bespinglobal.com/scm/op/tfmodule-context.git?ref=v1.0.0"
+  source = "git::https://code.bespinglobal.com/scm/op/tfmodule-context.git?ref=v1.0.1"
 
   context = {
     region      = "ap-northeast-2"
     project     = "apple"
     environment = "Production"
     owner       = "owner@academyiac.ml"
-    team_name   = "Devops Transformation"
     team        = "DX"
     cost_center = "20211129"
-    domain      = "academyiac.ml"
-    pri_domain  = "applegoods.local"
+    domain      = "mydemo.io"
+    pri_domain  = "mydemo.internal"
   }
 }
 
@@ -37,19 +36,19 @@ locals {
 
 # Input Variables
 
-| Name            | Description                                                     | Type           | Example               | Required |
-|-----------------|-----------------------------------------------------------------|----------------|-----------------------|:--------:|
-| context         | 프로젝트 또는 프로덕트를 위한 컨텍스트 정보를 정의 합니다. 이를 통해 일관된 네이밍과 태그 속성을 지원 합니다. | object(string) | -                     |   Yes    |
-| name_prefix     | 리소스 네이밍 규칙을 위한 접두어 입니다. 자동으로 구성 되니 정의하지 않는것을 권고 합니다.            | string         | -                     |    No    |
-| additional_tags | 태그 속성을 추가 하고자 하는 경우 정의 합니다.                                     | map(string)    | { MyKey1 = "Value1" } |    No    |
+| Name            | Description                                                                                                        | Type           | Example               | Required |
+|-----------------|--------------------------------------------------------------------------------------------------------------------|----------------|-----------------------|:--------:|
+| context         | It define context information of the project or product so that can support consistenly naming and tagging policy. | object(string) | -                     |   Yes    |
+| name_prefix     | This is set automatically internally, so it is recommended not to define it.                                       | string         | -                     |    No    |
+| additional_tags | Define tags if additional tags are required.                                                                       |  map(string)   | { MyKey1 = "Value1" } |    No    |
 
 ## Output
 
 | Name         | Description                                         | 
 |--------------|-----------------------------------------------------|
-| context      | 프로젝트 또는 프로덕트를 위한 컨텍스트 정보 객체 입니다.                    |
-| name_prefix  | 리소스 생성시 네이밍 규칙을 위한 접두어 값 입니다.                       |
-| tags         | 리소스 생성시 적용 될 태그 값 입니다.                              |
+| context      | 프로젝트 또는 프로덕트를 위한 컨텍스트 정보 객체 입니다.           |
+| name_prefix  | 리소스 생성시 네이밍 규칙을 위한 접두어 값 입니다.               |
+| tags         | 리소스 생성시 적용 될 태그 값 입니다.                         |
 | region       | AWS 리전입니다.                                          |
 | region_alias | AWS 리전 별칭 입니다.                                      |
 | project      | 프로젝트 이름 입니다.                                        |

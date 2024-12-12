@@ -1,29 +1,28 @@
 locals {
-  account_id   = data.aws_caller_identity.current.account_id
+  account_id = data.aws_caller_identity.current.account_id
   region_alias = lookup(local.aws_region_codes, var.context.region, "nn")
-  environment  = lower(var.context.environment)
-  env_alias    = substr(local.environment, 0, 1)
-  env_cd       = lookup(local.env_codes, var.context.environment, "nn")
-  env_code     = local.env_cd != "nn" ? local.env_cd : substr(local.environment, 0, 3)
+  environment = lower(var.context.environment)
+  env_alias = substr(local.environment, 0, 1)
+  env_cd = lookup(local.env_codes, var.context.environment, "nn")
+  env_code   = local.env_cd != "nn" ? local.env_cd : substr(local.environment, 0, 3)
 
   local_tags = {
     Project     = var.context.project
     Environment = var.context.environment
-    Department  = var.context.department
+    Team        = var.context.team
     Owner       = var.context.owner
     Customer    = var.context.customer
     ManagedBy   = var.provisioner
   }
 
   name_prefix      = var.name_prefix == null ? format("%s-%s%s", var.context.project, local.region_alias, local.env_alias) : var.name_prefix
-  s3_bucket_prefix = var.context.s3_prefix_cd == "region" ?  local.name_prefix : format("%s-%s", var.context.project, local.env_code)
+  s3_bucket_prefix = local.name_prefix # var.context.s3_prefix_cd == "region" ? local.name_prefix : format("%s-%s", var.context.project, local.env_code)
 
   tags = merge(
-    ( var.cost_center != null ? { CostCenter = var.cost_center } : {} ),
-    ( var.team != null ? {
-      OpsNowService = var.team
-      Team          = var.team
-    } : {} ),
+    (var.cost_center != null ? { CostCenter = var.cost_center } : {}),
+    (var.context.department != null ? {
+      Department = var.context.department
+    } : {}),
     local.local_tags,
     var.additional_tags
   )

@@ -10,7 +10,7 @@ output "context" {
     env_code         = local.env_code
     department       = var.context.department
     owner            = var.context.owner
-    team             = var.team
+    team             = var.context.team
     cost_center      = var.cost_center
     domain           = var.context.domain
     pri_domain       = var.context.pri_domain
@@ -73,7 +73,7 @@ output "owner" {
 }
 
 output "team" {
-  value = var.team
+  value = var.context.team
 }
 
 output "cost_center" {
