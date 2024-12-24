@@ -5,12 +5,13 @@ locals {
   env_alias = substr(local.environment, 0, 1)
   env_cd = lookup(local.env_codes, var.context.environment, "nn")
   env_code   = local.env_cd != "nn" ? local.env_cd : substr(local.environment, 0, 3)
+  owner = var.owner != null ? var.owner : var.context.owner
 
   local_tags = {
     Project     = var.context.project
     Environment = var.context.environment
-    Team        = var.context.team
-    Owner       = var.context.owner
+    Department  = var.context.department
+    Owner       = local.owner
     Customer    = var.context.customer
     ManagedBy   = var.provisioner
   }
@@ -19,10 +20,11 @@ locals {
   s3_bucket_prefix = local.name_prefix # var.context.s3_prefix_cd == "region" ? local.name_prefix : format("%s-%s", var.context.project, local.env_code)
 
   tags = merge(
-    (var.cost_center != null ? { CostCenter = var.cost_center } : {}),
-    (var.context.department != null ? {
-      Department = var.context.department
-    } : {}),
+    ( var.cost_center != null ? { CostCenter = var.cost_center } : {} ),
+    ( var.team != null ? {
+      OpsNowService = var.team
+      Team          = var.team
+    } : {} ),
     local.local_tags,
     var.additional_tags
   )
