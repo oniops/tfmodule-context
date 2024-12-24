@@ -1,5 +1,6 @@
 locals {
   account_id = data.aws_caller_identity.current.account_id
+  user_arn   = data.aws_caller_identity.current.arn
   region_alias = lookup(local.aws_region_codes, var.context.region, "nn")
   environment = lower(var.context.environment)
   env_alias = substr(local.environment, 0, 1)
