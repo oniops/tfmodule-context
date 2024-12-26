@@ -32,8 +32,8 @@ output "account_id" {
   value = local.account_id
 }
 
-output "user_arn" {
-  value = local.user_arn
+output "sts_user_arn" {
+  value = local.sts_user_arn
 }
 
 output "s3_bucket_prefix" {
