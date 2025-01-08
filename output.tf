@@ -28,16 +28,20 @@ output "name_prefix" {
   value = local.name_prefix
 }
 
+output "name_prefix_env" {
+  value = local.name_prefix
+}
+
+output "s3_bucket_prefix" {
+  value = local.s3_bucket_prefix
+}
+
 output "account_id" {
   value = local.account_id
 }
 
 output "sts_user_arn" {
   value = local.sts_user_arn
-}
-
-output "s3_bucket_prefix" {
-  value = local.s3_bucket_prefix
 }
 
 output "tags" {

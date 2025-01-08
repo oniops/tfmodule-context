@@ -17,8 +17,9 @@ locals {
     ManagedBy   = var.provisioner
   }
 
-  name_prefix = var.name_prefix == null ? format("%s-%s%s", var.context.project, local.region_alias, local.env_alias) : var.name_prefix
-  s3_bucket_prefix = local.name_prefix # var.context.s3_prefix_cd == "region" ? local.name_prefix : format("%s-%s", var.context.project, local.env_code)
+  name_prefix = var.name_prefix != null ? var.name_prefix : format("%s-%s%s", var.context.project, local.region_alias, local.env_alias)
+  name_prefix_env  = "${var.context.project}-${local.env_code}"
+  s3_bucket_prefix = var.context["s3_bucket_prefix"] == null ? local.name_prefix : local.name_prefix_env
 
   tags = merge(
     (var.cost_center != null ? { CostCenter = var.cost_center } : {}),
