@@ -9,12 +9,17 @@ variable "context" {
     customer          = string # Identify a specific client that a particular group of resources serves
     domain            = string # public toolchain domain name (ex, tools.customer.co.kr)
     pri_domain        = string # private domain name (ex, tools.customer.co.kr)
-    s3_bucket_prefix  = optional(string) # custom s3_bucket_prefix name. Default value is name_prefix
   })
 }
 
 variable "name_prefix" {
   description = "resource name prefix"
+  type        = string
+  default     = null
+}
+
+variable "s3_bucket_prefix" {
+  description = "s3 bucket prefix. If not set, it use name_prefix"
   type        = string
   default     = null
 }

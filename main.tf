@@ -2,9 +2,9 @@ locals {
   account_id   = data.aws_caller_identity.current.account_id
   sts_user_arn = data.aws_caller_identity.current.arn
   region_alias = lookup(local.aws_region_codes, var.context.region, "nn")
-  environment  = lower(var.context.environment)
-  env_alias    = substr(local.environment, 0, 1)
-  env_cd       = lookup(local.env_codes, var.context.environment, "nn")
+  environment = lower(var.context.environment)
+  env_alias = substr(local.environment, 0, 1)
+  env_cd = lookup(local.env_codes, var.context.environment, "nn")
   env_code     = local.env_cd != "nn" ? local.env_cd : substr(local.environment, 0, 3)
   owner        = var.owner != null ? var.owner : var.context.owner
 
@@ -17,9 +17,9 @@ locals {
     ManagedBy   = var.provisioner
   }
 
-  name_prefix = var.name_prefix != null ? var.name_prefix : format("%s-%s%s", var.context.project, local.region_alias, local.env_alias)
+  name_prefix      = var.name_prefix != null ? var.name_prefix : format("%s-%s%s", var.context.project, local.region_alias, local.env_alias)
   name_prefix_env  = "${var.context.project}-${local.env_code}"
-  s3_bucket_prefix = var.context["s3_bucket_prefix"] == null ? local.name_prefix : local.name_prefix_env
+  s3_bucket_prefix = var.s3_bucket_prefix == null ? local.name_prefix : var.s3_bucket_prefix == "env" ? local.name_prefix_env : var.s3_bucket_prefix
 
   tags = merge(
     (var.cost_center != null ? { CostCenter = var.cost_center } : {}),
