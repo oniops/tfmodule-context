@@ -48,6 +48,12 @@ variable "cost_center" {
   default     = null
 }
 
+variable "eks_simple_name" {
+  description = "EKS Cluster simple name"
+  type        = string
+  default     = null
+}
+
 variable "provisioner" {
   description = "Provisioner tool like terraform, cloudformation"
   type        = string
