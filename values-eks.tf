@@ -8,7 +8,7 @@ locals {
   oidc_provider_issuer = local.add_eks_context ? replace(data.aws_eks_cluster.this[0].identity[0].oidc[0].issuer, "https://", "") : ""
   oidc_provider_arn    = local.add_eks_context ? "arn:aws:iam::${local.account_id}:oidc-provider/${local.oidc_provider_issuer}" : ""
   eks_context = merge(local.context,
-      local.add_eks_context ? {
+    {
       cluster_simple_name    = var.eks_simple_name
       node_security_group_id = var.node_security_group_id
       cluster_name           = local.eks_cluster_name
@@ -18,7 +18,7 @@ locals {
       cluster_service_cidr   = local.cluster_service_cidr
       service_ipv4_cidr      = local.cluster_service_cidr
       oidc_provider_arn      = local.oidc_provider_arn
-    } : local.context
+    }
   )
 
 }
