@@ -1,6 +1,6 @@
 locals {
   add_eks_context      = var.eks_simple_name != null
-  eks_cluster_name     = "${local.name_prefix}-${var.eks_simple_name}-eks"
+  eks_cluster_name     = local.add_eks_context ? "${local.name_prefix}-${var.eks_simple_name}-eks" : ""
   cluster_version      = local.add_eks_context ? data.aws_eks_cluster.this[0].version : ""
   cluster_endpoint     = local.add_eks_context ? data.aws_eks_cluster.this[0].endpoint : ""
   cluster_auth_base64  = local.add_eks_context ? data.aws_eks_cluster.this[0].certificate_authority[0].data : ""
