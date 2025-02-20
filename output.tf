@@ -3,7 +3,7 @@ output "context" {
 }
 
 output "context_string" {
-  value = join(",", [for key, value in var.context : try("${key}=${value}","")])
+  value = join(",", [for key, value in var.context : try("${key}=${value}", "")])
 }
 
 output "name_prefix" {
@@ -78,6 +78,31 @@ output "pri_domain" {
   value = var.context.pri_domain
 }
 
+# EKS Cluster
 output "eks_context" {
   value = local.eks_context
+}
+output "eks_cluster_name" {
+  value = local.eks_cluster_name
+}
+
+output "eks_cluster_version" {
+  value = local.cluster_version
+}
+
+output "eks_cluster_endpoint" {
+  value = local.cluster_endpoint
+}
+
+
+output "eks_cluster_auth_base64" {
+  value = local.cluster_auth_base64
+}
+
+output "eks_cluster_service_cidr" {
+  value = local.cluster_service_cidr
+}
+
+output "eks_oidc_provider_arn" {
+  value = local.oidc_provider_arn
 }

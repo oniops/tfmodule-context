@@ -54,6 +54,12 @@ variable "eks_simple_name" {
   default     = null
 }
 
+variable "node_security_group_id" {
+  description = "SecurityGroup ID of EKS Node"
+  type        = string
+  default     = null
+}
+
 variable "provisioner" {
   description = "Provisioner tool like terraform, cloudformation"
   type        = string
