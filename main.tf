@@ -55,7 +55,10 @@ locals {
     us-east-2      = "ue2",
     us-west-1      = "uw1",
     us-west-2      = "uw2",
+    mx-central-1   = "mxc1",
+    ap-southeast-7 = "as7",
   }
+
 
   # Environment Codes
   env_codes = {
