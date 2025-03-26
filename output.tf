@@ -88,14 +88,21 @@ You can refer to EKS Context according to the two situations below.
   eks_context = module.ctx.eks_context
 
   # Case 2: Creating EKS
-  eks_context = merge(module.ctx.context,
-    {
-      cluster_name           = module.eks.cluster_name
-      cluster_simple_name    = var.cluster_simple_name
-      cluster_version        = var.cluster_version
-      service_ipv4_cidr      = module.eks.service_ipv4_cidr
-      oidc_provider_arn      = module.eks.oidc_provider_arn
-    })
+  locals {
+    eks_context = merge(module.ctx.context,
+      {
+        cluster_name           = local.name_prefix}-{var.cluster_simple_name}-eks
+        cluster_simple_name    = var.cluster_simple_name
+        cluster_version        = var.cluster_version
+        service_ipv4_cidr      = module.eks.service_ipv4_cidr
+        oidc_provider_arn      = module.eks.oidc_provider_arn
+        cluster_auth_base64    = module.eks.cluster_auth_base64
+        cluster_endpoint       = module.eks.cluster_endpoint
+        node_security_group_id = module.eks.node_security_group_id
+      })
+  }
+
+  eks_context = local.eks_context
 EOF
 }
 
