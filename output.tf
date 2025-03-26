@@ -81,7 +81,24 @@ output "pri_domain" {
 # EKS Cluster
 output "eks_context" {
   value = local.eks_context
+  description = <<-EOF
+You can refer to EKS Context according to the two situations below.
+
+  # Case 1: exists EKS
+  eks_context = module.ctx.eks_context
+
+  # Case 2: Creating EKS
+  eks_context = merge(module.ctx.context,
+    {
+      cluster_name           = module.eks.cluster_name
+      cluster_simple_name    = var.cluster_simple_name
+      cluster_version        = var.cluster_version
+      service_ipv4_cidr      = module.eks.service_ipv4_cidr
+      oidc_provider_arn      = module.eks.oidc_provider_arn
+    })
+EOF
 }
+
 output "eks_cluster_name" {
   value = local.eks_cluster_name
 }
