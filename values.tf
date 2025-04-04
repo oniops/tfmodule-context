@@ -2,6 +2,7 @@ locals {
   context = {
     # aws_profile  = var.context.aws_profile
     account_id       = local.account_id
+    sts_identity_arn = local.sts_user_arn
     project          = var.context.project
     region           = var.context.region
     region_alias     = local.region_alias

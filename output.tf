@@ -22,8 +22,8 @@ output "account_id" {
   value = local.account_id
 }
 
-output "sts_user_arn" {
-  value = local.sts_user_arn
+output "sts_identity_arn" {
+  value = local.sts_identity_arn
 }
 
 output "tags" {
