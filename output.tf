@@ -2,6 +2,10 @@ output "context" {
   value = local.context
 }
 
+output "input_context" {
+  value = var.context
+}
+
 output "context_string" {
   value = join(",", [for key, value in var.context : try("${key}=${value}", "")])
 }
