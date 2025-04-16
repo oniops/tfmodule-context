@@ -1,9 +1,8 @@
 output "context" {
-  value = local.context
-}
-
-output "input_context" {
-  value = var.context
+  value = merge(
+    var.custom_context,
+    local.context
+  )
 }
 
 output "context_string" {
@@ -84,7 +83,7 @@ output "pri_domain" {
 
 # EKS Cluster
 output "eks_context" {
-  value = local.eks_context
+  value       = local.eks_context
   description = <<-EOF
 You can refer to EKS Context according to the two situations below.
 

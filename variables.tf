@@ -12,6 +12,12 @@ variable "context" {
   })
 }
 
+variable "custom_context" {
+  type    = map(string)
+  default = null
+}
+
+
 variable "name_prefix" {
   description = "resource name prefix"
   type        = string
