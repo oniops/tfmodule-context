@@ -13,10 +13,6 @@ output "name_prefix" {
   value = local.name_prefix
 }
 
-output "name_prefix_env" {
-  value = local.name_prefix_env
-}
-
 output "s3_bucket_prefix" {
   value = local.s3_bucket_prefix
 }

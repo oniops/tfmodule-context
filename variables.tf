@@ -24,10 +24,10 @@ variable "name_prefix" {
   default     = null
 }
 
-variable "s3_bucket_prefix" {
+variable "is_s3_global_name_prefix" {
   description = "s3 bucket prefix. If not set, it use name_prefix"
-  type        = string
-  default     = null
+  type        = bool
+  default     = false
 }
 
 variable "team" {

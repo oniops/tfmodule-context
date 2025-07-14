@@ -18,8 +18,7 @@ locals {
   }
 
   name_prefix      = var.name_prefix != null ? var.name_prefix : format("%s-%s%s", var.context.project, local.region_alias, local.env_alias)
-  name_prefix_env  = "${var.context.project}-${local.env_code}"
-  s3_bucket_prefix = var.s3_bucket_prefix == null ? local.name_prefix : var.s3_bucket_prefix == "env" ? local.name_prefix_env : var.s3_bucket_prefix
+  s3_bucket_prefix = var.is_s3_global_name_prefix == null ?  "${var.context.project}-${local.env_code}": local.name_prefix
 
   tags = merge(
     (var.cost_center != null ? { CostCenter = var.cost_center } : {}),
