@@ -22,10 +22,7 @@ locals {
 
   tags = merge(
     (var.cost_center != null ? { CostCenter = var.cost_center } : {}),
-    (var.team != null ? {
-      OpsNowService = var.team
-      Team          = var.team
-    } : {}),
+    (var.team != null ? { Team = var.team } : {}),
     local.local_tags,
     var.additional_tags
   )
