@@ -13,6 +13,10 @@ output "name_prefix" {
   value = local.name_prefix
 }
 
+output "role_name_prefix" {
+  value = local.role_name_prefix
+}
+
 output "s3_bucket_prefix" {
   value = local.s3_bucket_prefix
 }
