@@ -16,6 +16,7 @@ locals {
     domain           = var.context.domain
     pri_domain       = var.context.pri_domain
     name_prefix      = local.name_prefix
+    role_name_prefix = local.role_name_prefix
     s3_bucket_prefix = local.s3_bucket_prefix
     tags             = local.tags
   }
