@@ -40,6 +40,7 @@ locals {
 | context         | It define context information of the project or product so that can support consistenly naming and tagging policy. | object(string) | -                     |   Yes    |
 | name_prefix     | This is set automatically internally, so it is recommended not to define it.                                       | string         | -                     |    No    |
 | additional_tags | Define tags if additional tags are required.                                                                       |  map(string)   | { MyKey1 = "Value1" } |    No    |
+| eks_cluster_name | EKS cluster name. Optional; set it only when an EKS cluster exists. When set, EKS context values (cluster_simple_name, cluster_version, cluster_endpoint, oidc_provider_arn, ...) are resolved and exposed via `eks_context`. | string         | "ue1p-grafanix-toolchain-eks" |    No    |
 
 ## Output
 

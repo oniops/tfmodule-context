@@ -1,14 +1,13 @@
 variable "context" {
   type = object({
-    # profile         = string # Identify a specific profile that used by provisioners like terraform.
-    project           = string # project name is usally account's project name or platform name
-    region            = string # describe default region to create a resource from aws
-    environment       = string # Distinguish between development, test, and production resources
-    department        = string # Organization name of BSP
-    owner             = string # Identify who is responsible for the resource
-    customer          = string # Identify a specific client that a particular group of resources serves
-    domain            = string # public toolchain domain name (ex, tools.customer.co.kr)
-    pri_domain        = string # private domain name (ex, tools.customer.co.kr)
+    project     = string           # project name is usally account's project name or platform name
+    region      = string           # describe default region to create a resource from aws
+    environment = string           # Distinguish between development, test, and production resources
+    owner       = string           # Identify who is responsible for the resource
+    customer    = string           # Identify a specific client that a particular group of resources serves
+    domain      = string           # public toolchain domain name (ex, tools.customer.co.kr)
+    pri_domain  = string           # private domain name (ex, my-stage.internal)
+    department  = optional(string) # Organization name of BSP
   })
 }
 
@@ -54,8 +53,8 @@ variable "cost_center" {
   default     = null
 }
 
-variable "eks_simple_name" {
-  description = "EKS Cluster simple name"
+variable "eks_cluster_name" {
+  description = "EKS Cluster name"
   type        = string
   default     = null
 }

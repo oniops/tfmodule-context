@@ -1,6 +1,7 @@
 locals {
-  add_eks_context      = var.eks_simple_name != null
-  eks_cluster_name     = local.add_eks_context ? "${local.name_prefix}-${var.eks_simple_name}-eks" : ""
+  add_eks_context      = !(var.eks_cluster_name == null || var.eks_cluster_name == "")
+  eks_cluster_name     = local.add_eks_context ? var.eks_cluster_name : ""
+  cluster_simple_name  = local.add_eks_context ? trim(trimsuffix(trimprefix(local.eks_cluster_name, "${local.name_prefix}-"), "-eks"), "-") : ""
   cluster_version      = local.add_eks_context ? data.aws_eks_cluster.this[0].version : ""
   cluster_endpoint     = local.add_eks_context ? data.aws_eks_cluster.this[0].endpoint : ""
   cluster_auth_base64  = local.add_eks_context ? data.aws_eks_cluster.this[0].certificate_authority[0].data : ""
@@ -9,9 +10,9 @@ locals {
   oidc_provider_arn    = local.add_eks_context ? "arn:aws:iam::${local.account_id}:oidc-provider/${local.oidc_provider_issuer}" : ""
   eks_context = merge(local.context,
     {
-      cluster_simple_name    = var.eks_simple_name
       node_security_group_id = var.node_security_group_id
       cluster_name           = local.eks_cluster_name
+      cluster_simple_name    = local.cluster_simple_name
       cluster_version        = local.cluster_version
       cluster_endpoint       = local.cluster_endpoint
       cluster_auth_base64    = local.cluster_auth_base64
