@@ -4,7 +4,10 @@ tfmodule-context 테라폼 모듈은 클라우드 서비스 및 리소스를 정
 
 ## Usage
 
+`tfmodule-context` 모듈을 사용하는 프로젝트에서는 `module.ctx.context` output 값 중 필요한 속성만 취할 수 있습니다. 예를들어 `project`, `name_prefix`, `region`, `domain`, `pri_domain` 속성만 필요하면, 아래 locals 에 정의한 것과 같이 사용할 수 있습니다.
+
 ```hcl
+# Using context variables from ctx module
 module "ctx" {
   source = "git::https://github.com/oniops/tfmodule-context.git?ref=v1.3.3"
 
@@ -20,17 +23,13 @@ module "ctx" {
   }
 }
 
-
-# Using context variables from ctx module
 locals {
-  context     = module.ctx.context
-  tags        = module.ctx.tags
-  region      = module.ctx.region
   project     = module.ctx.project
-  environment = module.ctx.environment
+  name_prefix = module.ctx.name_prefix
+  region      = module.ctx.region
+  tags        = module.ctx.tags
   domain      = module.ctx.domain
   pri_domain  = module.ctx.pri_domain
-  name_prefix = module.ctx.name_prefix
 }
 ```
 

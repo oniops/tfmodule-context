@@ -49,8 +49,8 @@ variable "additional_tags" {
 }
 
 variable "cost_center" {
-  description = "Identify the cost center or business unit associated with a resource, typically for cost"
-  type        = number
+  description = "Identify the cost center or business unit associated with a resource, typically for cost. Example) 1120 or CC1120"
+  type        = string
   default     = null
 }
 
